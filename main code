@@ -1,0 +1,31 @@
+import openai
+
+# Replace with your OpenAI API key
+OPENAI_API_KEY = "your_api_key_here"
+
+def ask_question(question):
+    """Sends the user's question to OpenAI API and returns the response."""
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",  # Use "gpt-3.5-turbo" for a cheaper alternative
+            messages=[{"role": "system", "content": "You are a helpful AI assistant."},
+                      {"role": "user", "content": question}],
+            max_tokens=100  # Limit response length
+        )
+        return response["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"Error: {e}"
+
+def main():
+    """Runs the interactive Q&A loop."""
+    print("Welcome to the AI Q&A System! (Type 'exit' to quit)")
+    while True:
+        user_question = input("\nAsk a question: ").strip()
+        if user_question.lower() == "exit":
+            print("Goodbye!")
+            break
+        answer = ask_question(user_question)
+        print("AI Answer:", answer)
+
+if __name__ == "__main__":
+    main()
