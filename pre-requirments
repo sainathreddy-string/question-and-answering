@@ -1,0 +1,21 @@
+
+#To implement, install dependencies:
+pip install transformers torch
+
+#Load a pre-trained model:
+from transformers import pipeline
+qa = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+
+#Provide a context (passage) and a question:
+#python Copy Edit
+
+context = "Python is an interpreted, high-level programming language."
+question = "What is Python?"
+result = qa(question=question, context=context)
+print(result['answer'])
+
+#Example using GPT-based API:
+from openai import OpenAI
+client = OpenAI(api_key="your_api_key")
+response = client.Completion.create(model="gpt-4", prompt="What is Python?")
+print(response["choices"][0]["text"])
